@@ -1,37 +1,73 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { FormEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+// REDUX
+import { gallery } from "store/selectors/gallery";
+//
 import assets from "assets";
+import { Spinner } from "components/_common";
 import { useDeviceType } from "helpers/customHooks";
 import { classNames } from "helpers/functions";
 import styles from "./Gallery.scss";
-import { gallery } from "store/selectors/gallery";
-import { fetchGalleryAsync } from "store/actions/gallery";
 
 const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
-  const dispatch = useDispatch();
-  const { payload } = useSelector(gallery);
+  const { selectedImageIndex, payload, isFetching } = useSelector(gallery);
+  const [selectedImage, setSelectedImage] = useState({ idx: selectedImageIndex, img: "" });
 
   useEffect(() => {
-    dispatch(fetchGalleryAsync.request("tst"));
-  }, []);
+    const newSelectedImage = {
+      idx: selectedImageIndex,
+      img: (payload?.gallery && payload?.gallery[selectedImageIndex].img) || "",
+    };
+    setSelectedImage(newSelectedImage);
+  }, [payload, selectedImageIndex]);
+
+  const handleOnClickArrow = (e: FormEvent) => {
+    e.preventDefault();
+    const btnType = e.currentTarget["id"];
+    if (btnType === "left" && selectedImage.idx - 1 >= 0) {
+      const newSelectedImage = {
+        idx: selectedImage.idx - 1,
+        img: (payload?.gallery && payload?.gallery[selectedImage.idx - 1].img) || "",
+      };
+      setSelectedImage(newSelectedImage);
+    } else if (btnType === "right" && selectedImage.idx + 1 < payload?.gallery.length) {
+      const newSelectedImage = {
+        idx: selectedImage.idx + 1,
+        img: (payload?.gallery && payload?.gallery[selectedImage.idx + 1].img) || "",
+      };
+      setSelectedImage(newSelectedImage);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
-      <div className={classNames(styles.arrowBtn, styles.arrowLeft)} onClick={() => {}}>
-        <img src={assets.arrow} alt={"Left Button"} />
-      </div>
-      <div
-        className={styles.imgDisplay}
-        style={{
-          background: `url(https://images.unsplash.com/photo-1422207134147-65fb81f59e38?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80)  center center / cover no-repeat`,
-          // Parallex is not supported in tl and sp
-          // backgroundAttachment: deviceType === "pc" ? "fixed" : "initial",
-        }}
-      />
-      <div className={classNames(styles.arrowBtn, styles.arrowRight)} onClick={() => {}}>
-        <img src={assets.arrow} alt={"Right Button"} />
-      </div>
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <>
+          <div
+            id={"left"}
+            className={classNames(styles.arrowBtn, styles.arrowLeft)}
+            onClick={handleOnClickArrow}
+          >
+            <img src={assets.arrow} alt={"Left Button"} />
+          </div>
+          <div
+            className={styles.imgDisplay}
+            style={{
+              background: `url(${selectedImage.img})  center center / cover no-repeat`,
+            }}
+          />
+          <div
+            id={"right"}
+            className={classNames(styles.arrowBtn, styles.arrowRight)}
+            onClick={handleOnClickArrow}
+          >
+            <img src={assets.arrow} alt={"Right Button"} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

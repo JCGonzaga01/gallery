@@ -5,5 +5,9 @@ declare module "GalleryType" {
     img: string;
   };
 
-  type GalleryList = Array<GalleryType>;
+  type GalleryList = {
+    name: string;
+    tagline: string;
+    gallery: Array<GalleryType>;
+  };
 }
