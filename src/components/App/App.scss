@@ -1,2 +1,5 @@
+@import "helpers/stylings/_index";
+
 .wrapper {
+  @include align-center;
 }

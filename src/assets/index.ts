@@ -5,12 +5,14 @@ import headerLogo from "./headerLogo.png";
 import github from "./svg/github.svg";
 import linkedin from "./svg/linkedin.svg";
 import email from "./svg/email.svg";
+import arrow from "./svg/arrow.svg";
 
 export default {
-  // Header
+  // HEADER
   headerLogo,
-  // ICONS
+  // SVG
   linkedin,
   github,
   email,
+  arrow,
 };
