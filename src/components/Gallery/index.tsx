@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import assets from "assets";
 import { useDeviceType } from "helpers/customHooks";
 import { classNames } from "helpers/functions";
 import styles from "./Gallery.scss";
+import { gallery } from "store/selectors/gallery";
+import { fetchGalleryAsync } from "store/actions/gallery";
 
 const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
+  const dispatch = useDispatch();
+  const { payload } = useSelector(gallery);
+
+  useEffect(() => {
+    dispatch(fetchGalleryAsync.request("tst"));
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <div className={classNames(styles.arrowBtn, styles.arrowLeft)} onClick={() => {}}>
