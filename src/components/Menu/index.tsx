@@ -11,7 +11,7 @@ import styles from "./Menu.scss";
 
 const Menu: React.FC = () => {
   const dispatch = useDispatch();
-  const { payload, isFetching } = useSelector(gallery);
+  const { selectedImageIndex, payload, isFetching } = useSelector(gallery);
 
   useEffect(() => {
     dispatch(fetchGalleryAsync.request("baguio-trip"));
@@ -55,6 +55,9 @@ const Menu: React.FC = () => {
                 <div
                   id={idx.toString()}
                   key={`${idx}-${item.name}`}
+                  className={
+                    selectedImageIndex === idx ? styles.selectedImage : styles.unSelectedImage
+                  }
                   style={{
                     background: `url(${item.img})  center center / cover no-repeat`,
                   }}

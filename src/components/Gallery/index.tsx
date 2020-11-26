@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // REDUX
+import { setImageToView } from "store/actions/gallery";
 import { gallery } from "store/selectors/gallery";
 //
 import assets from "assets";
@@ -11,6 +12,7 @@ import styles from "./Gallery.scss";
 
 const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
+  const dispatch = useDispatch();
   const { selectedImageIndex, payload, isFetching } = useSelector(gallery);
   const [selectedImage, setSelectedImage] = useState({ idx: selectedImageIndex, img: "" });
 
@@ -25,19 +27,19 @@ const Gallery: React.FC = () => {
   const handleOnClickArrow = (e: FormEvent) => {
     e.preventDefault();
     const btnType = e.currentTarget["id"];
-    if (btnType === "left" && selectedImage.idx - 1 >= 0) {
-      const newSelectedImage = {
-        idx: selectedImage.idx - 1,
-        img: (payload?.gallery && payload?.gallery[selectedImage.idx - 1].img) || "",
-      };
-      setSelectedImage(newSelectedImage);
-    } else if (btnType === "right" && selectedImage.idx + 1 < payload?.gallery.length) {
-      const newSelectedImage = {
-        idx: selectedImage.idx + 1,
-        img: (payload?.gallery && payload?.gallery[selectedImage.idx + 1].img) || "",
-      };
-      setSelectedImage(newSelectedImage);
-    }
+    let newSelectedImageIndex = selectedImage.idx;
+    const galleryLen = payload?.gallery.length;
+    if (btnType === "left")
+      newSelectedImageIndex = selectedImage.idx - 1 >= 0 ? selectedImage.idx - 1 : galleryLen - 1;
+    else if (btnType === "right")
+      newSelectedImageIndex = selectedImage.idx + 1 < galleryLen ? selectedImage.idx + 1 : 0;
+    const newSelectedImage = {
+      idx: newSelectedImageIndex,
+      img: (payload?.gallery && payload?.gallery[newSelectedImageIndex].img) || "",
+    };
+
+    dispatch(setImageToView(newSelectedImageIndex));
+    setSelectedImage(newSelectedImage);
   };
 
   return (

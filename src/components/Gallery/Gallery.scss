@@ -3,9 +3,9 @@
 .wrapper {
   @include align-center;
   background-color: #242a43;
-  position: relative;
   height: 100vh;
-  width: 73vw;
+  position: relative;
+  width: 100vw;
 
   .imgDisplay {
     height: 100%;
