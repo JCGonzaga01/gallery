@@ -3,7 +3,7 @@
 .wrapper {
   height: 100vh;
   min-width: 300px;
-  width: 300px;
+  width: 30vw;
 
   .header {
     background: $themeColorBG;
@@ -44,6 +44,9 @@
     }
 
     .description {
+      @include media-query(pc) {
+        padding-left: 30px;
+      }
       color: $textSubTitle;
       font-family: "Roboto";
       font-size: 16px;
@@ -70,8 +73,14 @@
 
     & > div {
       cursor: pointer;
+      @include media-query(pc) {
+        height: 100px;
+        @media (min-width: 1250px) {
+          height: 120px;
+        }
+      }
       height: 80px;
-      width: 130px;
+      width: 50%;
     }
 
     .selectedImage {

@@ -14,32 +14,19 @@ const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
   const dispatch = useDispatch();
   const { selectedImageIndex, payload, isFetching } = useSelector(gallery);
-  const [selectedImage, setSelectedImage] = useState({ idx: selectedImageIndex, img: "" });
-
-  useEffect(() => {
-    const newSelectedImage = {
-      idx: selectedImageIndex,
-      img: (payload?.gallery && payload?.gallery[selectedImageIndex].img) || "",
-    };
-    setSelectedImage(newSelectedImage);
-  }, [payload, selectedImageIndex]);
 
   const handleOnClickArrow = (e: FormEvent) => {
     e.preventDefault();
     const btnType = e.currentTarget["id"];
-    let newSelectedImageIndex = selectedImage.idx;
+    let newSelectedImageIndex = selectedImageIndex;
     const galleryLen = payload?.gallery.length;
     if (btnType === "left")
-      newSelectedImageIndex = selectedImage.idx - 1 >= 0 ? selectedImage.idx - 1 : galleryLen - 1;
+      newSelectedImageIndex = selectedImageIndex - 1 >= 0 ? selectedImageIndex - 1 : 0;
     else if (btnType === "right")
-      newSelectedImageIndex = selectedImage.idx + 1 < galleryLen ? selectedImage.idx + 1 : 0;
-    const newSelectedImage = {
-      idx: newSelectedImageIndex,
-      img: (payload?.gallery && payload?.gallery[newSelectedImageIndex].img) || "",
-    };
+      newSelectedImageIndex =
+        selectedImageIndex + 1 < galleryLen ? selectedImageIndex + 1 : galleryLen - 1;
 
     dispatch(setImageToView(newSelectedImageIndex));
-    setSelectedImage(newSelectedImage);
   };
 
   return (
@@ -55,12 +42,15 @@ const Gallery: React.FC = () => {
           >
             <img src={assets.arrow} alt={"Left Button"} />
           </div>
-          <div
-            className={styles.imgDisplay}
-            style={{
-              background: `url(${selectedImage.img})  center center / cover no-repeat`,
-            }}
-          />
+          {payload?.gallery?.map((item, idx) => (
+            <div
+              key={`${idx}-${item.name}`}
+              className={selectedImageIndex === idx ? styles.imgDisplay : styles.imgHide}
+              style={{
+                background: `url(${item.img})  center center / cover no-repeat`,
+              }}
+            />
+          ))}
           <div
             id={"right"}
             className={classNames(styles.arrowBtn, styles.arrowRight)}
