@@ -8,3 +8,5 @@ export const fetchGalleryAsync = createAsyncAction(
 )<string, GalleryList, string>();
 
 export const setImageToView = createAction("SET_IMAGE_TO_VIEW")<number>();
+
+export const setMenuToggle = createAction("SET_MENU_TOGGLE")<boolean>();

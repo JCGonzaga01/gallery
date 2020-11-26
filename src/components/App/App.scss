@@ -1,5 +1,6 @@
 @import "helpers/stylings/_index";
 
 .wrapper {
-  @include align-center;
+  display: flex;
+  align-items: flex-start;
 }

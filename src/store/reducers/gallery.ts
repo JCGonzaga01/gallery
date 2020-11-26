@@ -1,7 +1,7 @@
 import { GalleryList } from "GalleryType";
 import { combineReducers } from "redux";
 import { createReducer } from "typesafe-actions";
-import { fetchGalleryAsync, setImageToView } from "store/actions/gallery";
+import { fetchGalleryAsync, setImageToView, setMenuToggle } from "store/actions/gallery";
 
 export const isFetching = createReducer(false as boolean)
   .handleAction([fetchGalleryAsync.request], (_state, _action) => true)
@@ -17,10 +17,16 @@ export const selectedImageIndex = createReducer(0 as number).handleAction(
   (_state, action) => action.payload
 );
 
+export const menuToggle = createReducer(true as boolean).handleAction(
+  setMenuToggle,
+  (_state, action) => action.payload
+);
+
 const galleryReducer = combineReducers({
   isFetching,
   payload,
   selectedImageIndex,
+  menuToggle,
 });
 
 export default galleryReducer;

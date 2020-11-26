@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // REDUX
-import { setImageToView } from "store/actions/gallery";
+import { setImageToView, setMenuToggle } from "store/actions/gallery";
 import { gallery } from "store/selectors/gallery";
 //
 import assets from "assets";
@@ -13,7 +13,7 @@ import styles from "./Gallery.scss";
 const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
   const dispatch = useDispatch();
-  const { selectedImageIndex, payload, isFetching } = useSelector(gallery);
+  const { selectedImageIndex, payload, isFetching, menuToggle } = useSelector(gallery);
 
   const handleOnClickArrow = (e: FormEvent) => {
     e.preventDefault();
@@ -29,8 +29,10 @@ const Gallery: React.FC = () => {
     dispatch(setImageToView(newSelectedImageIndex));
   };
 
+  const handleOnclickMenu = () => dispatch(setMenuToggle(!menuToggle));
+
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, menuToggle ? styles.shortImg : styles.expandImg)}>
       {isFetching ? (
         <Spinner />
       ) : (
@@ -51,12 +53,39 @@ const Gallery: React.FC = () => {
               }}
             />
           ))}
+
           <div
-            id={"right"}
-            className={classNames(styles.arrowBtn, styles.arrowRight)}
-            onClick={handleOnClickArrow}
+            className={classNames(
+              styles.arrowRightContainer,
+              menuToggle ? styles.arrowRightContainerFixed : styles.arrowRightContainerFlex
+            )}
           >
-            <img src={assets.arrow} alt={"Right Button"} />
+            <div
+              id={"right"}
+              className={classNames(styles.arrowBtn, styles.arrowRight)}
+              onClick={handleOnClickArrow}
+            >
+              <img src={assets.arrow} alt={"Right Button"} />
+            </div>
+          </div>
+          <div
+            className={classNames(
+              styles.menuToggle,
+              menuToggle ? styles.menuPadding : styles.menuUnpadding
+            )}
+          >
+            {menuToggle ? (
+              <div className={styles.closeMenu} onClick={handleOnclickMenu}>
+                <span />
+                <span />
+              </div>
+            ) : (
+              <div className={styles.burgerMenu} onClick={handleOnclickMenu}>
+                <span />
+                <span />
+                <span />
+              </div>
+            )}
           </div>
         </>
       )}

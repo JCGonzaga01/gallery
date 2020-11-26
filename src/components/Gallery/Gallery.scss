@@ -1,11 +1,19 @@
 @import "helpers/stylings/_index";
 
+.expandImg {
+  width: 100vw;
+}
+
+.shortImg {
+  width: 70vw;
+}
+
 .wrapper {
   @include align-center;
   background-color: #242a43;
   height: 100vh;
   position: relative;
-  width: 70vw;
+  transition: 1s ease-in-out;
 
   .imgHide {
     height: 0;
@@ -60,8 +68,27 @@
     }
   }
 
-  .arrowRight {
+  .arrowRightContainerFixed {
+    @media (max-width: 1000px) {
+      right: 300px;
+    }
+    right: 30vw;
+  }
+
+  .arrowRightContainerFlex {
     right: 0;
+  }
+
+  .arrowRightContainer {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    transition: 1s ease-in-out;
+    width: 60px;
+    z-index: 1;
+  }
+
+  .arrowRight {
     &:hover {
       background: linear-gradient(
         to right,
@@ -72,6 +99,62 @@
         rgba(0, 0, 0, 0.5),
         rgba(0, 0, 0, 0.6)
       );
+    }
+  }
+
+  .menuPadding {
+    @media (max-width: 1000px) {
+      right: 310px;
+    }
+    right: 31vw;
+  }
+
+  .menuUnpadding {
+    right: 1vw;
+  }
+
+  .menuToggle {
+    @include align-center;
+    height: 45px;
+    opacity: 1;
+    position: fixed;
+    top: 20px;
+    transition: 1s ease-in-out;
+    width: 45px;
+    z-index: 1;
+
+    .burgerMenu > span {
+      background: #ffffff;
+      border-radius: 3px;
+      box-shadow: 0px 3px 8px 2px #000000;
+      cursor: pointer;
+      display: block;
+      height: 5px;
+      margin-bottom: 2px;
+      transition: 0.75s ease-in-out;
+      width: 30px;
+    }
+
+    .closeMenu {
+      cursor: pointer;
+      height: 25px;
+
+      & > span {
+        background: #ffffff;
+        border-radius: 3px;
+        box-shadow: 0px 0px 8px 2px #000000;
+        display: block;
+        height: 5px;
+        transition: 0.75s ease-in-out;
+        width: 30px;
+      }
+
+      & > :first-child {
+        transform: rotate(-45deg) translate(-7px, 7px);
+      }
+      & > :last-child {
+        transform: rotate(45deg) translate(4px, 3px);
+      }
     }
   }
 }
