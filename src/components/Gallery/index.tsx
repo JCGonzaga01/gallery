@@ -75,7 +75,7 @@ const Gallery: React.FC = () => {
                   selectedImageIndex === idx ? styles.imgDisplay : styles.imgHide
                 )}
                 style={{
-                  background: `url(${item.imgUrl})  center center / cover no-repeat`,
+                  background: `url(${item.imgUrl})  center center / contain no-repeat`,
                 }}
               >
                 <span>{item.name}</span>
