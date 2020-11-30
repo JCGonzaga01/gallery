@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // REDUX
 import { setImageToView, setMenuToggle } from "store/actions/gallery";
@@ -14,6 +14,17 @@ const Gallery: React.FC = () => {
   const deviceType = useDeviceType();
   const dispatch = useDispatch();
   const { selectedImageIndex, payload, isFetching, menuToggle } = useSelector(gallery);
+
+  useEffect(() => {
+    const setHeightProperty = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setHeightProperty();
+    window.addEventListener("resize", setHeightProperty);
+    return () => window.removeEventListener("resize", setHeightProperty);
+  }, []);
 
   const handleOnClickArrow = (e: FormEvent) => {
     e.preventDefault();

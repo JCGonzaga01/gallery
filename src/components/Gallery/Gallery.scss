@@ -25,6 +25,7 @@
   }
   background-color: #242a43;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   position: relative;
   transition: 1s ease-in-out;
 
@@ -46,13 +47,16 @@
     width: 100%;
 
     span {
+      @include media-query(sp) {
+        font-size: 20px;
+      }
       font-size: 30px;
     }
   }
 
   .imgWrapper {
-    display: flex;
     align-items: flex-end;
+    display: flex;
 
     span {
       background: linear-gradient(

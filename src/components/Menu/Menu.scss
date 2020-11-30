@@ -37,6 +37,11 @@
   }
 
   .detailsTitle {
+    @include media-query(sp) {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
     align-items: flex-end;
     display: flex;
     flex-direction: column;
@@ -112,9 +117,13 @@
   }
 
   .footerName {
+    @include media-query(sp) {
+      padding: 20px 20px 100px;
+      text-align: center;
+    }
     color: $textDefault;
     letter-spacing: 1px;
-    padding: 30px 20px;
+    padding: 30px 20px 60px;
     text-align: end;
   }
 

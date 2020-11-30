@@ -10,6 +10,10 @@ html {
 }
 
 body {
+  @include media-query(sp) {
+    font-family: "Roboto";
+  }
+
   margin: 0;
   padding: 0;
   font-family: "Concert One", "Roboto";
