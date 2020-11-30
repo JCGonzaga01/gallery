@@ -1,4 +1,4 @@
-# [ON_GOING] Project Overview
+# Project Overview
 
 This project was intended first to be the gallery page of [my personal website](https://jcgonzaga01.github.io/).
 But due to its flexibility to be an independent website or page, I made and built this poject to be easily modifieble so you can still use this as your template in building your own gallery.
@@ -56,15 +56,15 @@ This completes the set up instructions. Please continue reading below to learn o
 
 1. Start by changing the Logo of this site, go to `src/assets` folder then update `headerLogo.png` to your own logo.
 
-2. Currently, this project only supported images fetch
+2. Then proceed to `src/services/apiClient/gallery.ts` file.
+   IF will use API to fetch images, declare your api url in there.
+   ELSE IF will use local images, go to `src/constants/_galleryList.ts_TEMP` and remove the `_TEMP` in file name
+   and declare all your local images in that file.
+   then, go to `src/services/apiClient/gallery.ts` file and use the predefined syntax to call to call local images
 
-3. Go to `src/constants` folder and update all constant information in there.
+3. Next, go to `src/constants` folder and update all constant information in there except `_galleryList.ts_TEMP`.
 
-4. You can also change the website color themes at `src/helpers/stylings/global.scss`.
-
-5.
-
-[TO BE FILLED UP...]
+4. You can also change the website color theming at `src/helpers/stylings/global.scss`.
 
 ## Build and Deploy
 

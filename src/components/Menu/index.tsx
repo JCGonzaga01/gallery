@@ -17,6 +17,11 @@ const Menu: React.FC = () => {
   const { selectedImageIndex, payload, isFetching, menuToggle } = useSelector(gallery);
 
   useEffect(() => {
+    // NOTE:
+    // IF will point to a dynamic images' api, add 'name' in url search params
+    // e.g. gallery/?name=images-api
+    // ELSE IF single point of images' api or will use local images, comment/remove below codes and just run
+    // `dispatch(fetchGalleryAsync.request(''));`
     let galleryName = "";
     if (typeof window !== undefined) {
       const urlParams = new URLSearchParams(window.location.search);

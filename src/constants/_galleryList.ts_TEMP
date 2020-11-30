@@ -1,10 +1,17 @@
+import assets from "assets";
+
 export const galleryList = {
   title: "Test Title",
   tagline: "Tagline testing",
   gallery: [
     {
       name: "Image1",
-      imgUrl: "(Image directory here...)",
+      // NOTE:
+      // Syntax
+      // imgUrl: "(Image directory here...)"
+      // Point the directory to the location of your images.
+      // e.g. imgUrl: assets.headerLogo
+      imgUrl: assets.headerLogo,
     },
   ],
 };
