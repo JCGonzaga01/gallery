@@ -1,4 +1,5 @@
 import React from "react";
+import ErrorBoundary from "components/ErrorBoundary";
 import Gallery from "components/Gallery";
 import Menu from "components/Menu";
 import styles from "./App.scss";
@@ -6,8 +7,10 @@ import styles from "./App.scss";
 const App: React.FC = () => {
   return (
     <div className={styles.wrapper}>
-      <Gallery />
-      <Menu />
+      <ErrorBoundary>
+        <Gallery />
+        <Menu />
+      </ErrorBoundary>
     </div>
   );
 };

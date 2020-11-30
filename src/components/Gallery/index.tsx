@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // REDUX
 import { setImageToView, setMenuToggle } from "store/actions/gallery";
@@ -32,34 +32,44 @@ const Gallery: React.FC = () => {
   const handleOnclickMenu = () => dispatch(setMenuToggle(!menuToggle));
 
   return (
-    <div className={classNames(styles.wrapper, menuToggle ? styles.shortImg : styles.expandImg)}>
+    <div
+      className={classNames(
+        styles.wrapper,
+        deviceType === "sp"
+          ? menuToggle
+            ? styles.hideSPImage
+            : styles.showSPImage
+          : menuToggle
+          ? styles.shortImg
+          : styles.expandImg
+      )}
+    >
       {isFetching ? (
         <Spinner />
       ) : (
-        <>
-          <div
-            id={"left"}
-            className={classNames(styles.arrowBtn, styles.arrowLeft)}
-            onClick={handleOnClickArrow}
-          >
-            <img src={assets.arrow} alt={"Left Button"} />
-          </div>
-          {payload?.gallery?.map((item, idx) => (
+        ((deviceType === "sp" && !menuToggle) || deviceType !== "sp") && (
+          <>
             <div
-              key={`${idx}-${item.name}`}
-              className={selectedImageIndex === idx ? styles.imgDisplay : styles.imgHide}
-              style={{
-                background: `url(${item.img})  center center / cover no-repeat`,
-              }}
-            />
-          ))}
-
-          <div
-            className={classNames(
-              styles.arrowRightContainer,
-              menuToggle ? styles.arrowRightContainerFixed : styles.arrowRightContainerFlex
-            )}
-          >
+              id={"left"}
+              className={classNames(styles.arrowBtn, styles.arrowLeft)}
+              onClick={handleOnClickArrow}
+            >
+              <img src={assets.arrow} alt={"Left Button"} />
+            </div>
+            {payload?.gallery?.map((item, idx) => (
+              <div
+                key={`${idx}-${item.name}`}
+                className={classNames(
+                  styles.imgWrapper,
+                  selectedImageIndex === idx ? styles.imgDisplay : styles.imgHide
+                )}
+                style={{
+                  background: `url(${item.imgUrl})  center center / cover no-repeat`,
+                }}
+              >
+                <span>{item.name}</span>
+              </div>
+            ))}
             <div
               id={"right"}
               className={classNames(styles.arrowBtn, styles.arrowRight)}
@@ -67,27 +77,22 @@ const Gallery: React.FC = () => {
             >
               <img src={assets.arrow} alt={"Right Button"} />
             </div>
-          </div>
-          <div
-            className={classNames(
-              styles.menuToggle,
-              menuToggle ? styles.menuPadding : styles.menuUnpadding
-            )}
-          >
-            {menuToggle ? (
-              <div className={styles.closeMenu} onClick={handleOnclickMenu}>
-                <span />
-                <span />
-              </div>
-            ) : (
-              <div className={styles.burgerMenu} onClick={handleOnclickMenu}>
-                <span />
-                <span />
-                <span />
-              </div>
-            )}
-          </div>
-        </>
+            <div className={styles.menuToggle} onClick={handleOnclickMenu}>
+              {menuToggle ? (
+                <div className={styles.closeMenu}>
+                  <span />
+                  <span />
+                </div>
+              ) : (
+                <div className={styles.burgerMenu}>
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              )}
+            </div>
+          </>
+        )
       )}
     </div>
   );

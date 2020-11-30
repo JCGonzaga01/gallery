@@ -2,11 +2,13 @@ declare module "GalleryType" {
   type GalleryType = {
     id?: string;
     name: string;
-    img: string;
+    imgUrl: string;
+    // vidPoster?: string;
+    // vidUrl?: string;
   };
 
   type GalleryList = {
-    name: string;
+    title: string;
     tagline: string;
     gallery: Array<GalleryType>;
   };

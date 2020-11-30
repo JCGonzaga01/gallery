@@ -1,0 +1,10 @@
+export const galleryList = {
+  title: "Test Title",
+  tagline: "Tagline testing",
+  gallery: [
+    {
+      name: "Image1",
+      imgUrl: "(Image directory here...)",
+    },
+  ],
+};

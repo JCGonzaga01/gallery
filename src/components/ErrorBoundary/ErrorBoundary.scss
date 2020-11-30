@@ -1,0 +1,61 @@
+@import "helpers/stylings/_index";
+
+.wrapper {
+  @include align-center;
+  @include media-query(sp) {
+    flex-direction: column;
+  }
+
+  height: 100vh;
+  padding: 20px;
+  width: 100vw;
+
+  .errorRobot {
+    @include media-query(pc, tl) {
+      margin-right: 25px;
+    }
+    background: #c4e5f5;
+    border-radius: 50%;
+    padding: 20px;
+
+    img {
+      height: 150px;
+      width: 150px;
+    }
+  }
+
+  .errorDetails {
+    @include media-query(sp) {
+      text-align: center;
+    }
+    max-width: 500px;
+
+    .title {
+      font-size: 35px;
+    }
+
+    .description {
+      @include media-query(sp) {
+        margin-top: -20px;
+      }
+      font-family: "Roboto";
+    }
+
+    .contactEmail {
+      @include media-query(sp) {
+        justify-content: center;
+      }
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+
+      img {
+        cursor: pointer;
+        filter: invert(0.4);
+        height: 25px;
+        margin-right: 10px;
+        width: 25px;
+      }
+    }
+  }
+}

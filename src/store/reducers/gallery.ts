@@ -9,7 +9,7 @@ export const isFetching = createReducer(false as boolean)
 
 export const payload = createReducer({} as GalleryList).handleAction(
   fetchGalleryAsync.success,
-  (_state, action) => action.payload
+  (state, action) => action.payload || state
 );
 
 export const selectedImageIndex = createReducer(0 as number).handleAction(

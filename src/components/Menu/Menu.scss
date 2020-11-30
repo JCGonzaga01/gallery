@@ -1,21 +1,23 @@
 @import "helpers/stylings/_index";
 
 .hideMenu {
-  @media (max-width: 1000px) {
-    transform: translateX(300px);
+  @include media-query(pc, tl) {
+    transform: translateX(35vw);
   }
-  transform: translateX(30vw);
 }
 
 .wrapper {
+  @include media-query(sp) {
+    width: 100vw;
+  }
   background: #ffffff;
   height: 100vh;
-  min-width: 300px;
+  overflow: scroll;
   position: fixed;
   right: 0;
   top: 0;
   transition: 1s ease-in-out;
-  width: 30vw;
+  width: 35vw;
 
   .header {
     background: $themeColorBG;
@@ -84,13 +86,16 @@
     padding: 30px 20px;
 
     & > div {
-      cursor: pointer;
       @include media-query(pc) {
         height: 100px;
         @media (min-width: 1250px) {
           height: 120px;
         }
       }
+      @include media-query(sp) {
+        height: 150px;
+      }
+      cursor: pointer;
       height: 80px;
       width: 50%;
     }

@@ -5,11 +5,24 @@
 }
 
 .shortImg {
-  width: 70vw;
+  width: 65vw;
+}
+
+.showSPImage {
+  opacity: 1;
+  z-index: 1;
+}
+
+.hideSPImage {
+  opacity: 0;
+  z-index: 0;
 }
 
 .wrapper {
   @include align-center;
+  @include media-query(sp) {
+    width: 100vw;
+  }
   background-color: #242a43;
   height: 100vh;
   position: relative;
@@ -20,6 +33,10 @@
     opacity: 0;
     transition: 1.3s ease-in-out;
     width: 0;
+
+    span {
+      font-size: 0;
+    }
   }
 
   .imgDisplay {
@@ -27,13 +44,40 @@
     opacity: 1;
     transition: 1.3s ease-in-out;
     width: 100%;
+
+    span {
+      font-size: 30px;
+    }
+  }
+
+  .imgWrapper {
+    display: flex;
+    align-items: flex-end;
+
+    span {
+      background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.8)
+      );
+      color: #ffffff;
+      font-family: "Roboto";
+      letter-spacing: 1px;
+      margin-bottom: 30px;
+      padding: 10px 50px;
+      transition: 1.3s ease-in-out;
+    }
   }
 
   .arrowBtn {
     @include align-center;
     cursor: pointer;
-    height: 100%;
     opacity: 0.5;
+    padding: 20px 0;
     position: absolute;
     transition: 0.3s ease-in-out;
     z-index: 1;
@@ -52,6 +96,7 @@
 
   .arrowLeft {
     left: 0;
+    padding-right: 20px;
     img {
       transform: scale(-1);
     }
@@ -68,27 +113,9 @@
     }
   }
 
-  .arrowRightContainerFixed {
-    @media (max-width: 1000px) {
-      right: 300px;
-    }
-    right: 30vw;
-  }
-
-  .arrowRightContainerFlex {
-    right: 0;
-  }
-
-  .arrowRightContainer {
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    transition: 1s ease-in-out;
-    width: 60px;
-    z-index: 1;
-  }
-
   .arrowRight {
+    padding-left: 20px;
+    right: 0;
     &:hover {
       background: linear-gradient(
         to right,
@@ -102,32 +129,34 @@
     }
   }
 
-  .menuPadding {
-    @media (max-width: 1000px) {
-      right: 310px;
-    }
-    right: 31vw;
-  }
-
-  .menuUnpadding {
-    right: 1vw;
-  }
-
   .menuToggle {
     @include align-center;
     height: 45px;
-    opacity: 1;
-    position: fixed;
+    opacity: 0.5;
+    position: absolute;
+    right: 0;
     top: 20px;
-    transition: 1s ease-in-out;
+    transition: 0.3s ease-in-out;
     width: 45px;
     z-index: 1;
+
+    &:hover {
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.3),
+        rgba(0, 0, 0, 0.4),
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.6)
+      );
+      cursor: pointer;
+      opacity: 1;
+    }
 
     .burgerMenu > span {
       background: #ffffff;
       border-radius: 3px;
-      box-shadow: 0px 3px 8px 2px #000000;
-      cursor: pointer;
       display: block;
       height: 5px;
       margin-bottom: 2px;
@@ -136,13 +165,11 @@
     }
 
     .closeMenu {
-      cursor: pointer;
       height: 25px;
 
       & > span {
         background: #ffffff;
         border-radius: 3px;
-        box-shadow: 0px 0px 8px 2px #000000;
         display: block;
         height: 5px;
         transition: 0.75s ease-in-out;
